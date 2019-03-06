@@ -6,10 +6,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  messageTX: string = "";
+  messagesRX: string[] = [];
   constructor() { }
 
   ngOnInit() {
+  }
+
+  sendMessage(){
+    this.messagesRX.push(this.messageTX);
+    this.messageTX = "";
+  }
+
+  deleteMessage(msgIndex: number){
+    this.messagesRX.splice(msgIndex, 1);
   }
 
 }

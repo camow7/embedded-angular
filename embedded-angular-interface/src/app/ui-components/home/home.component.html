@@ -1,3 +1,37 @@
-<p>
-  home works!
-</p>
+<body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Send</h1>
+      <h2 class="subtitle">
+          Type the message you want to send to the UART port and hit send or enter!
+        </h2>
+        <div class="card " style="background-color: #0BE4B6;">
+            <div class="card-content ">
+                <div class="columns text-center">
+                    <div class="column is-10"> <input class="input is-rounded is-medium" type="text" placeholder="Enter message" [(ngModel)]="messageTX" (keyup.enter)="sendMessage()"></div>
+                    <div class="column "><a class="button is-rounded is-medium is-fullwidth" (click)="sendMessage()">Send</a></div>
+                  </div>
+            </div>
+          </div>
+    </div>
+  </section>
+
+  <section class="section">
+      <div class="container">
+        <h1 class="title">Receive</h1>
+        <h2 class="subtitle">
+            This is where your received messages will appear!
+          </h2>
+          <div class="card">
+              <div class="card-content">
+                <div *ngFor="let msg of messagesRX; let i = index" style="padding: 1%">
+                  <div class="notification" >
+                      <button class="delete" (click)="deleteMessage(i)"></button>
+                      {{msg}}
+                    </div>
+                  </div>
+              </div>
+            </div>
+      </div>
+    </section>
+</body>
