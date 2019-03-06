@@ -8,6 +8,10 @@ import { AppRoutingModule } from './/app-routing.module';
 import { NavbarComponent } from './ui-components/navbar/navbar.component';
 import { HomeComponent } from './ui-components/home/home.component';
 
+//Import relevant services
+import { WebSocketsService } from "./services/web-sockets/web-sockets.service"
+import {UartCommsService} from "./services/uart-comms/uart-comms.service"
+
 
 @NgModule({
   declarations: [
@@ -20,7 +24,7 @@ import { HomeComponent } from './ui-components/home/home.component';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [WebSocketsService, UartCommsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

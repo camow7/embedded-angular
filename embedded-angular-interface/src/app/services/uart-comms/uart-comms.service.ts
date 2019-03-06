@@ -12,16 +12,12 @@ export interface Message {
 @Injectable()
 export class UartCommsService {
 	public messages: Subject<Message>;
-
+	message: Message;
 	constructor(wsService: WebSocketsService) {
 		this.messages = <Subject<Message>>wsService
 			.connect(SERVER_URL)
 			.map((response: MessageEvent): Message => {
-				let message = JSON.parse(response.data);
-				return {
-					Command: message.command,
-					Data: message.data
-				}
+				return this.message = JSON.parse(response.data);
 			});
 	}
 }
