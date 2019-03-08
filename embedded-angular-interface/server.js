@@ -1,3 +1,6 @@
+//Import file system
+var fs = require('fs');
+var messages = JSON.parse(fs.readFileSync("messages.json"));
 //Simple server for websockets
 const WebSocket = require('ws');
 //Setup Serial Port
@@ -19,9 +22,10 @@ const parser = port.pipe(new Readline({ delimiter: '\n' }));
 wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
       messageRX = JSON.parse(message);
+      messages.push(messageRX);
       if (messageRX.Command === "echo"){
-          messageTX = messageRX;
-          port.write(JSON.stringify(messageTX) + '\n\r'); //add carriage return as Arduino is expecting it
+          port.write(JSON.stringify(messageRX) + '\n\r'); //add carriage return as Arduino is expecting it
+          fs.writeFileSync("messages.json", JSON.stringify(messages));
       }
   });
 
