@@ -13,15 +13,18 @@ export class HomeComponent implements OnInit {
   messagesRX: string[] = [];
   private message = {Command: '',Data: ''}; //Message object we defined for our websocket service
 
-  constructor(private comms: UartCommsService) {
-    //subscribe to the receiver the observable for the comms
-    comms.messages.subscribe(msg => {
-      //add the messages to our array of recieved messages			
-      this.messagesRX.push(msg.Command + ': ' + msg.Data);
-		});
-   }
+  constructor(private comms: UartCommsService) {}
 
   ngOnInit() {
+    //subscribe to the receiver the observable for the comms
+    this.comms.messages.subscribe(msg => {
+      if (msg.Command === "echo"){  //add the messages to our array of recieved messages
+        this.messagesRX.push(msg.Command + ': ' + msg.Data);
+      }
+      else if (msg.Command === "delete"){ //delete message from memory
+        this.messagesRX.splice(Number(msg.Data), 1);
+      }			
+    });
   }
 
   //Send message to websocket with echo command so it comes back to us  
@@ -35,8 +38,11 @@ export class HomeComponent implements OnInit {
 		this.messageTX = "";
   }
 
+  //Tell server you want to remove this message
   deleteMessage(msgIndex: number){
-    this.messagesRX.splice(msgIndex, 1);
+    this.message.Command = "delete";
+    this.message.Data = msgIndex.toString();
+    this.comms.messages.next(this.message);
   }
 
 }
