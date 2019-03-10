@@ -3,15 +3,15 @@ var fs = require('fs');
 //initalise messages array with the saved message history
 var messages = [];
 var comPort = {port:"",baud:9600};
-messages = JSON.parse(fs.readFileSync("messages.json"));
-comPort = JSON.parse(fs.readFileSync("port.json"));
+messages = JSON.parse(fs.readFileSync(__dirname + "/messages.json"));
+comPort = JSON.parse(fs.readFileSync(__dirname + "/port.json"));
 
 //Setup express server
 var express  = require('express');
 var app = express();
 app.use(express.static(__dirname + '/dist'));
 var expressConfig = {port:8080};
-expressConfig = JSON.parse(fs.readFileSync("expressConfig.json"));
+expressConfig = JSON.parse(fs.readFileSync(__dirname + "/expressConfig.json"));
 
 //Simple server for websockets
 const WebSocket = require('ws');
@@ -60,7 +60,7 @@ wss.on('connection', function connection(ws) {
     //Check command from client and respond appropriately
     if (messageRX.Command === "echo"){
       messages.push(messageRX);
-      fs.writeFileSync("messages.json", JSON.stringify(messages));
+      fs.writeFileSync(__dir + "/messages.json", JSON.stringify(messages));
       //wss.broadcast(JSON.stringify(messageRX)); //Used if you want to echo on the server without the arduino
       port.write(JSON.stringify(messageRX) + '\n\r'); //add carriage return as Arduino is expecting it
     }
@@ -68,7 +68,7 @@ wss.on('connection', function connection(ws) {
       //remove message from memory and save to file
       messages.splice(Number(messageRX.Data), 1);
       messageTX = messageRX;
-      fs.writeFileSync("messages.json", JSON.stringify(messages));
+      fs.writeFileSync(__dirname + "/messages.json", JSON.stringify(messages));
       //inform all clients to delete the item from their memory
       wss.broadcast(JSON.stringify(messageTX));
     }
