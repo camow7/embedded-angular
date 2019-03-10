@@ -172,7 +172,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var SERVER_URL = "ws://192.168.0.14:6123";
+var SERVER_URL = "ws://192.168.42.1:6123"; //this is the static ip address of the rapsberry pi AP
 var UartCommsService = /** @class */ (function () {
     function UartCommsService(wsService) {
         var _this = this;
