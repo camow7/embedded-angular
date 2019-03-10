@@ -60,7 +60,7 @@ wss.on('connection', function connection(ws) {
     //Check command from client and respond appropriately
     if (messageRX.Command === "echo"){
       messages.push(messageRX);
-      fs.writeFileSync(__dir + "/messages.json", JSON.stringify(messages));
+      fs.writeFileSync(__dirname + "/messages.json", JSON.stringify(messages));
       //wss.broadcast(JSON.stringify(messageRX)); //Used if you want to echo on the server without the arduino
       port.write(JSON.stringify(messageRX) + '\n\r'); //add carriage return as Arduino is expecting it
     }
