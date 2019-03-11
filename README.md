@@ -6,5 +6,7 @@ This project is a boilerplate for creating devices that have a low-level control
 This project set's up a few handy things that form the base for a complete end-to-end system:
 - Serving an Angular App with ExpressJS
 - Talking to the file system of a Raspberry Pi with Nodes fs module
-- Communicating to multiple front-end clients using a websocket server
-- 
+- Communicating to external device via NPM package serialport
+- Allows multiple devices connected simultaneously with real-time updates via websockets
+- Set's up primary raspberry pi wifi as an access point with DHCP server
+- Bridges primary wifi to secondary wifi (if available) to allow internet access via AP
