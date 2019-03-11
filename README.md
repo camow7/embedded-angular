@@ -13,6 +13,15 @@ This project set's up a few handy things that form the base for a complete end-t
 - Set's up primary raspberry pi wifi as an access point with DHCP server
 - Bridges primary wifi to secondary wifi (if available) to allow internet access via AP
 
+## Hardware
+To fully complete this porject you will need the following hardware:
+- [Raspberry Pi Zero W](https://core-electronics.com.au/raspberry-pi-zero-w-wireless.html) or [Raspberry Pi 3](https://core-electronics.com.au/raspberry-pi-3-model-b-plus.html)
+- An Arduino (I used an [Arduino Leonardo](https://core-electronics.com.au/arduino-leonardo.html))
+- [Edimax WiFi DOngle](https://core-electronics.com.au/edimax-wifi-adapter-ew-7811un.html) (Optional if using Raspberry Pi 3)
+- 2 x [Micro USB cables](https://core-electronics.com.au/micro-usb-cable.html)
+- [Micro USB Hub](https://core-electronics.com.au/usb-mini-hub-with-power-switch-otg-micro-usb.html) If using the Raspberry Pi Zero
+- USB power source or Power Bank
+
 # Getting Started
 ## Quick Start
 The easiest and fastest way to demo this project is to download the applicable Raspberry Pi image, flash you SD and Ardunio switch it all on. You can download the images here:
@@ -25,5 +34,8 @@ You will also need to flash your arduino with the `arduino-code/serial-echo.ino`
 Plug your Arduino's USB into the Raspberry Pi's USB port and you're ready to configure your ports. Jump to the config section.
 ## Setting up Your Pi from Scratch
 If you want to setup your Raspberry Pi yourself or are already running a Raspberry Pi image and want to add this project to it then just follow these steps or pick and choose the steps you need.
-### Setup your SD
-The first step is to setup your Raspberry Pi's SD with an operating system. I recommend using [this](https://www.raspberrypi.org/documentation/installation/installing-images/) tutorial. If you are using Windows [Etcher](https://www.balena.io/etcher/) is the best tool for flashing the SD card with your downloaded Pi image.
+### Setup your Pi OS
+The first step is to setup your Raspberry Pi's SD with an operating system. I used the latest version of Raspbian. I recommend using [this](https://www.raspberrypi.org/documentation/installation/installing-images/) tutorial. If you are using Windows [Etcher](https://www.balena.io/etcher/) is the best tool for flashing the SD card with your downloaded Pi image.
+
+Once your SD is imaged power up your Raspberry Pi and take it through the first time boot setup. Ensure you enable SSH in the raspi-config. I also changed the host name of my pi to `ng-embedded`.
+### 
