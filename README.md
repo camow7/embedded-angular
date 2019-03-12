@@ -42,10 +42,10 @@ Watch the video below to see how the demo works
 ### Running the App
 Once you have your Rapsberry Pi up and running with your Arduino connected follwo these steps to test the app:
 1. Connect to the Pi's hotspot **SSID: ngEmbedded** using the **password: raspberry** from your laptop
-2. SSH into the Pi and set the WiFi (if you want internet access through the WiFi dongle), Serial port and the Express Server port (optional). Instrructions for this are below.
+2. [Connect to Raspberry Pi via SSH](https://www.raspberrypi.org/documentation/remote-access/ssh/) and set the WiFi (if you want internet access through the WiFi dongle), Serial port and the Express Server port (optional). Instructions for this are below.
 3. reboot the Pi `sudo reboot `.
 4. Make sure you reconnect to the **ngEmbedded** network
-5. On your laptop or smart phone go to **192.168.42.1:2506** in a web browser. You should see the App interface load with come messages loaded in the recieved section. These are from file and tell you the server is running.
+5. On your laptop or smart phone go to **192.168.42.1:2506** in a web browser. You should see the App interface load with some messages loaded in the recieved section. These are from file and tell you the server is running.
 6. Send a message. You should see it echoed back to the recieved section of the app.
 ### Configure WiFi Dongle
 To connect the WiFi dongle (wlan1) to your network follow these steps:
@@ -96,7 +96,7 @@ The first step is to setup your Raspberry Pi's SD with an operating system. I us
 
 Once your SD is imaged power up your Raspberry Pi and take it through the first time boot setup. The easiest way to do this is plug your Pi into a tv, connect the USB hub with a mouse, keyboard and wifi dongle. Ensure you enable SSH in the raspi-config. I also changed the host name of my pi to `ng-embedded`. Connect the WiFi dongle (will appear as wlan1) to your home wifi network. 
 
-Once your Raspberry Pi is connected to your network you can SSH into it from your computer. It's easier to continue the rest of the setup from this point forward on your computer. You can see how to connect to your Pi via SSH here: [Connect to Raspberry Pi vis SSH](https://www.raspberrypi.org/documentation/remote-access/ssh/)
+Once your Raspberry Pi is connected to your network you can SSH into it from your computer. It's easier to continue the rest of the setup from this point forward on your computer. You can see how to connect to your Pi via SSH here: [Connect to Raspberry Pi via SSH](https://www.raspberrypi.org/documentation/remote-access/ssh/)
 ### Configure Pi as Wireless AP
 Now we have our Pi up and running we want to enable the ability to connect to it directly from our computer or smart phone without an external network. The following instructions are modified from the [Ardupilot Docs on Mavlink WiFi Bridge] (http://ardupilot.org/dev/docs/making-a-mavlink-wifi-bridge-using-the-raspberry-pi.html). To setup up the Pi as an AP follow these steps:
 #### Make sure your Pi is up to date then install **hostapd** and **isc-dhcp-server**
