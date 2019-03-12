@@ -34,6 +34,48 @@ You will also need to flash your arduino with the `arduino-code/serial-echo.ino`
 Plug your Arduino's USB into the Raspberry Pi's USB port and you're ready to use the app.
 
 **NOTE**: If you want to setup up an existing Pi see the **Setting up your Pi from Scratch** section.
+## Usage
+### Demo
+Watch the video below to see how the demo works
+**Video Coming SOON**
+### Configure Serial Port
+To set up your desired Serial Port naviaget to the project
+```
+cd /home/pi/embedded-angular/embedded-angular-interface
+```
+and open the port.json file
+```
+sudo nano port.json
+```
+Simply set the desired port and baud then close and save the file using **Ctrl-X**, **Y**, **Enter**
+For the Pi the config might look like this
+```
+{
+    "port":"/dev/ttyACM0",
+    "baud":1000000
+}
+```
+
+If you want to see the ports available for use I have written a app that prints the available ports. You can run it by issuing
+```
+node lits-devices.js
+```
+You'll get a response of ports that looks something like this
+```
+/dev/ttyAMA0
+/dev/ttyS0
+```
+### Configure Express Port
+You can also configure the port you want the Angualr app to be served on by opening the expressConfig file
+```
+sudo nano expressConfig.json
+```
+and editing the port to whatever you want
+```
+{
+    "port":2506
+}
+```
 ## Setting up Your Pi from Scratch
 If you want to setup your Raspberry Pi yourself or are already running a Raspberry Pi image and want to add this project to it then just follow these steps or pick and choose the steps you need.
 ### Setup your Pi OS
