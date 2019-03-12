@@ -39,6 +39,18 @@ Plug your Arduino's USB into the Raspberry Pi's USB port and you're ready to use
 Watch the video below to see how the demo works
 
 **Video Coming SOON**
+### Running the App
+Once you have your Rapsberry Pi up and running with your Arduino connected follwo these steps to test the app:
+1. Connect to the Pi's hotspot **SSID: ngEmbedded** using the **password: raspberry** from your laptop
+2. SSH into the Pi and set the WiFi (if you want internet access through the WiFi dongle), Serial port and the Express Server port (optional). Instrructions for this are below.
+3. reboot the Pi `sudo reboot `.
+4. Make sure you reconnect to the **ngEmbedded** network
+5. On your laptop or smart phone go to **192.168.42.1:2506** in a web browser. You should see the App interface load with come messages loaded in the recieved section. These are from file and tell you the server is running.
+6. Send a message. You should see it echoed back to the recieved section of the app.
+### Configure WiFi Dongle
+To connect the WiFi dongle (wlan1) to your network follow these steps:
+1. From the SSH terminal open the network interfaces file `sudo nano /etc/networks/interfaces`
+2. Scroll down to wlan1 settings and replaced the **wpa-ssid** field and **wpa-psk** field with your SSID and WiFi password.
 ### Configure Serial Port
 To set up your desired Serial Port naviaget to the project
 ```
