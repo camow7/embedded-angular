@@ -31,7 +31,9 @@ The easiest and fastest way to demo this project is to download the applicable R
 You can find useful instructions on flashing your Raspberry Pi [here](https://www.raspberrypi.org/documentation/installation/installing-images/). 
 You will also need to flash your arduino with the `arduino-code/serial-echo.ino`. There's a good tutorial [here](https://www.arduino.cc/en/main/howto) on how to flash an Arduino with code.
 
-Plug your Arduino's USB into the Raspberry Pi's USB port and you're ready to configure your ports. Jump to the config section.
+Plug your Arduino's USB into the Raspberry Pi's USB port and you're ready to use the app.
+
+**NOTE**: If you want to setup up an existing Pi see the **Setting up your Pi from Scratch** section.
 ## Setting up Your Pi from Scratch
 If you want to setup your Raspberry Pi yourself or are already running a Raspberry Pi image and want to add this project to it then just follow these steps or pick and choose the steps you need.
 ### Setup your Pi OS
@@ -88,4 +90,169 @@ and change the INTERFACESv4 line like so:
 INTERFACESv4="wlan0"
 ```
 #### Setup wlan0 as Static
-We need to congfigure a static IP for the AP so we know what to it.
+We need to congfigure a static IP for the AP so we know what to it. Shut down the wlan0 wifi and open the interfaces file
+```
+sudo ifdown wlan0
+sudo nano /etc/network/interfaces
+```
+And replace the contents with the following
+```
+# Include files from /etc/network/interfaces.d:
+source-directory /etc/network/interfaces.d
+auto lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+allow-hotplug wlan0
+iface wlan0 inet static
+  address 192.168.42.1
+  netmask 255.255.255.0
+
+allow-hotplug wlan1
+iface wlan1 inet dhcp
+    wpa-ssid "YOUR-SSID"
+    wpa-psk "YOUR-WIFI-PASSWORD"
+
+up iptables-restore < /etc/iptables.ipv4.nat
+```
+Press **Control-X** then **Y** then **Enter** to save the edited config file. Then you can bring the wifi back online
+```
+sudo ifconfig wlan0 192.168.42.1
+```
+#### Configure AP Details
+Open the hostapd conf
+```
+sudo nano /etc/hostapd/hostapd.conf
+```
+and put the following lines in the file
+```
+# This is the name of the WiFi interface we configured above
+interface=wlan0
+# Use the nl80211 driver for on-board wifi for pi 3 and zero
+driver=nl80211
+# This is the name of the network
+ssid=ngEmbedded
+# Use the 2.4GHz band
+hw_mode=g
+# Use channel 6
+channel=6
+# Enable 802.11n
+#ieee80211n=1
+# Enable WMM
+wmm_enabled=0
+# Enable 40MHz channels with 20ns guard interval
+#ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40]
+# Accept all MAC addresses
+#macaddr_acl=0
+# Use WPA authentication
+auth_algs=1
+# Require clients to know the network name
+#ignore_broadcast_ssid=0
+# Use WPA2
+wpa=2
+# Use a pre-shared key
+#wpa_key_mgmt=WPA-PSK
+# The network passphrase
+wpa_passphrase=raspberry
+# Use AES, instead of TKIP
+#wpa_pairwise=TKIP
+#rsn_pairwise=CCMP
+```
+Press **Control-X** then **Y** then **Enter** to save the edited config file. Now we must tell hostapd to use our new config. Open the hostapd DAEMON file
+```
+sudo nano /etc/default/hostapd
+```
+and modify the DAEMON_CONF line like so
+```
+DAEMON_CONF="/etc/hostapd/hostapd.conf"
+```
+Press **Control-X** then **Y** then **Enter** to save the edited config file.
+#### Bridge AP to Internet
+Now we want to bridge our wlan0 AP to our wlan1 network so we can have internet access while connected to the AP. Open the sysctl.conf
+```
+sudo nano /etc/sysctl.conf
+```
+and uncomment the the IPV4 line like so
+```
+# Uncomment the next line to enable packet forwarding for IPv4
+net.ipv4.ip_forward=1
+```
+Press **Control-X** then **Y** then **Enter** to save the edited config file. Apply the changes immediately by issuing the following commad
+```
+sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+```
+Setup up the forward rules by running these 3 commands
+```
+sudo iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
+sudo iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
+```
+So these changes apply after boot issue
+```
+sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
+```
+#### Running Everything on Boot
+Start both service by issuing these commands
+```
+sudo service hostapd start
+sudo service isc-dhcp-server start
+```
+then add them to your update-rc.d file via
+```
+sudo update-rc.d hostapd enable
+sudo update-rc.d isc-dhcp-server enable
+```
+I had some trouble getting the the DHCP server to boot. To fix this I removed the dhcpcd5
+```
+sudo apt-get remove dhcpcd5
+```
+and added a command to force the DHCP server to run by opening the rc.local
+```
+sudo nano /etc/rc.local
+```
+and adding the following line just before the final **exit 0** line
+```
+sudo service isc-dhcp-server start
+```
+#### You're done
+Now reboot the Rpi and you should see the **ngEmbedded** SSID available for connection
+```
+sudo reboot
+```
+### Install NodeJS
+Issue these 3 commands to install NodeJS on your Raspberry Pi
+```
+curl -o node-v8.9.3-linux-armv6l.tar.gz https://nodejs.org/dist/v8.9.3/node-v8.9.3-linux-armv6l.tar.gz
+tar -xzf node-v8.9.3-linux-armv6l.tar.gz
+sudo cp -r node-v8.9.3-linux-armv6l/* /usr/local/
+```
+Confirm node and npm are installed
+```
+node -v
+npm -v
+```
+You can use a different version of node by replacing the version number with your chosen version.
+### Setup the code on Your Pi
+Put the code onto you Pi by issuing the following command to clone the project to your `/home/pi/` directory
+```
+git clone https://github.com/camow7/embedded-angular.git
+```
+Navigate into the project directory
+```
+cd ./embedded-angular/embedded-angular-interface
+``
+and instal the npm packages for the project
+```
+sudo npm install --unsafe-perm
+```
+This takes quite while to complete (took an hour for me) and throws a few warnings but be patient.
+### Configure the project to run on boot by opening the rc.local
+```
+sudo nano /etc/rc.local
+```
+and adding the following line just before the final **exit 0** line
+```
+su pi -c 'node /home/pi/embedded-angular/embedded-angular-interface/server.js < /dev/null &'
+```
+
