@@ -37,6 +37,7 @@ Plug your Arduino's USB into the Raspberry Pi's USB port and you're ready to use
 ## Usage
 ### Demo
 Watch the video below to see how the demo works
+
 **Video Coming SOON**
 ### Configure Serial Port
 To set up your desired Serial Port naviaget to the project
@@ -58,7 +59,7 @@ For the Pi the config might look like this
 
 If you want to see the ports available for use I have written a app that prints the available ports. You can run it by issuing
 ```
-node lits-devices.js
+node list-devices.js
 ```
 You'll get a response of ports that looks something like this
 ```
