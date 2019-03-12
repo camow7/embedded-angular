@@ -241,7 +241,7 @@ git clone https://github.com/camow7/embedded-angular.git
 Navigate into the project directory
 ```
 cd ./embedded-angular/embedded-angular-interface
-``
+```
 and instal the npm packages for the project
 ```
 sudo npm install --unsafe-perm
@@ -255,4 +255,8 @@ and adding the following line just before the final **exit 0** line
 ```
 su pi -c 'node /home/pi/embedded-angular/embedded-angular-interface/server.js < /dev/null &'
 ```
+### Reboot and test
+You should now be setup and ready to run the demo
+
+
 
