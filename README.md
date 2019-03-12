@@ -25,7 +25,7 @@ To fully complete this porject you will need the following hardware:
 # Getting Started
 ## Quick Start
 The easiest and fastest way to demo this project is to download the applicable Raspberry Pi image, flash you SD and Ardunio switch it all on. You can download the images here:
-- [Raspberry Pi Zero W (Coming Soon)](https://www.saphi.com.au)
+- [Raspberry Pi Zero W](https://saphi-my.sharepoint.com/:u:/g/personal/cameron_owen_saphi_com_au/EaMCki5nFXRMhV9QRkpOPFYBuZnR0aJG0mCcqY2AX9D9oA?e=dUnP4e)
 - [Raspberry Pi 3 (Coming Soon)](https://www.saphi.com.au)
 
 You can find useful instructions on flashing your Raspberry Pi [here](https://www.raspberrypi.org/documentation/installation/installing-images/). 
