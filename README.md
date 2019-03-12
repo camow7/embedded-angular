@@ -49,7 +49,7 @@ Once you have your Rapsberry Pi up and running with your Arduino connected follw
 6. Send a message. You should see it echoed back to the recieved section of the app.
 ### Configure WiFi Dongle
 To connect the WiFi dongle (wlan1) to your network follow these steps:
-1. From the SSH terminal open the network interfaces file `sudo nano /etc/networks/interfaces`
+1. From the SSH terminal open the network interfaces file `sudo nano /etc/network/interfaces`
 2. Scroll down to wlan1 settings and replaced the **wpa-ssid** field and **wpa-psk** field with your SSID and WiFi password.
 ### Configure Serial Port
 To set up your desired Serial Port naviaget to the project
@@ -95,6 +95,8 @@ If you want to setup your Raspberry Pi yourself or are already running a Raspber
 The first step is to setup your Raspberry Pi's SD with an operating system. I used the latest version of Raspbian. I recommend using [this](https://www.raspberrypi.org/documentation/installation/installing-images/) tutorial. If you are using Windows [Etcher](https://www.balena.io/etcher/) is the best tool for flashing the SD card with your downloaded Pi image.
 
 Once your SD is imaged power up your Raspberry Pi and take it through the first time boot setup. The easiest way to do this is plug your Pi into a tv, connect the USB hub with a mouse, keyboard and wifi dongle. Ensure you enable SSH in the raspi-config. I also changed the host name of my pi to `ng-embedded`. Connect the WiFi dongle (will appear as wlan1) to your home wifi network. 
+
+**Headless Setup**: If you want to setup up your Pi and you don't have a keyboard, mouse and HDMI screen I reccommend this tutorial: [How to Setup Pi Zero Headless](https://core-electronics.com.au/tutorials/raspberry-pi-zerow-headless-wifi-setup.html)
 
 Once your Raspberry Pi is connected to your network you can SSH into it from your computer. It's easier to continue the rest of the setup from this point forward on your computer. You can see how to connect to your Pi via SSH here: [Connect to Raspberry Pi via SSH](https://www.raspberrypi.org/documentation/remote-access/ssh/)
 ### Configure Pi as Wireless AP
