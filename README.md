@@ -282,11 +282,16 @@ Now reboot the Rpi and you should see the **ngEmbedded** SSID available for conn
 sudo reboot
 ```
 ### Install NodeJS
-Issue these 3 commands to install NodeJS on your Raspberry Pi
+For **Raspberry Pi Zero** Issue these 3 commands to install NodeJS
 ```
 curl -o node-v8.9.3-linux-armv6l.tar.gz https://nodejs.org/dist/v8.9.3/node-v8.9.3-linux-armv6l.tar.gz
 tar -xzf node-v8.9.3-linux-armv6l.tar.gz
 sudo cp -r node-v8.9.3-linux-armv6l/* /usr/local/
+```
+For **Raspberry Pi 3** Issue these commands to install NodeJS
+```
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
 ```
 Confirm node and npm are installed
 ```
