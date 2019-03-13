@@ -255,6 +255,10 @@ Start both service by issuing these commands
 sudo service hostapd start
 sudo service isc-dhcp-server start
 ```
+You may get an error about the hostapd service being masked. If so do this:
+```
+sudo systemctl unmask hostapd.service
+```
 then add them to your update-rc.d file via
 ```
 sudo update-rc.d hostapd enable
