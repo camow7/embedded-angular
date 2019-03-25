@@ -28,6 +28,8 @@ The easiest and fastest way to demo this project is to download the applicable R
 - [Raspberry Pi Zero W](https://saphi-my.sharepoint.com/:u:/g/personal/cameron_owen_saphi_com_au/EaMCki5nFXRMhV9QRkpOPFYBuZnR0aJG0mCcqY2AX9D9oA?e=dUnP4e)
 - [Raspberry Pi 3](https://saphi-my.sharepoint.com/:u:/g/personal/cameron_owen_saphi_com_au/EcM4gP6GH8lGoC-Cpzgfp1QBgtL79QvQoL4YEpuV43P9YA?e=cASq2j)
 
+You can also have a play with the demo on your Windows desktop using this pre-built [Electron image](https://saphi-my.sharepoint.com/:u:/g/personal/cameron_owen_saphi_com_au/ERiJ8RgKV-FEsbLVG4LwxiIB2_FvKGwJMinQbZdoQkLLDA?e=18KIor).
+
 You can find useful instructions on flashing your Raspberry Pi [here](https://www.raspberrypi.org/documentation/installation/installing-images/). 
 You will also need to flash your arduino with the `arduino-code/serial-echo.ino`. There's a good tutorial [here](https://www.arduino.cc/en/main/howto) on how to flash an Arduino with code.
 
