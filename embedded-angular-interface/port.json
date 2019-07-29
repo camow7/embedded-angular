@@ -1,5 +1,5 @@
 
 {
-    "port":"",
+    "port":"/dev/ttyACM0",
     "baud":1000000  
 }
